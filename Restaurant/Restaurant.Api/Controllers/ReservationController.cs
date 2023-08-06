@@ -36,7 +36,7 @@ namespace Restaurant.Api.Controllers
             else
             {
                 return Problem(
-                        makeReservationResult.Message,
+                        detail: makeReservationResult.Message,
                         statusCode: StatusCodes.Status500InternalServerError,
                         title: ServiceResultMessages.ServerError);
             }

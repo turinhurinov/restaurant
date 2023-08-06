@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Api\Restaurant.Api.csproj" />
     <ProjectReference Include="..\Restaurant.Business\Restaurant.Business.csproj" />
   </ItemGroup>
 

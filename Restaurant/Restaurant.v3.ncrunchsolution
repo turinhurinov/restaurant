@@ -7,6 +7,7 @@
       <Value>Program.cs:Restaurant.Api\Restaurant.Api.csproj</Value>
       <Value>Startup.cs:Restaurant.Api\Restaurant.Api.csproj</Value>
       <Value>Restaurant.Ioc\Restaurant.Ioc.csproj</Value>
+      <Value>Services\Settings.cs:Restaurant.Framework\Restaurant.Framework.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
