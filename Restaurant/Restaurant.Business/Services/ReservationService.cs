@@ -27,7 +27,7 @@ namespace Restaurant.Business.Services
         {
             //TODO: validate request
             var tables = GetAvailableTables(date, guests);
-            if (tables == null || tables.Count == 0)
+            if (!AvailableTableExists(tables))
             {
                 Console.WriteLine("Üzgünüz, uygun masa bulunamadı.");
                 return;
@@ -49,7 +49,12 @@ namespace Restaurant.Business.Services
             Console.WriteLine("Rezervasyon başarıyla yapıldı.");
         }
 
-        List<Table> GetAvailableTables(DateTime date, int guests)
+        static bool AvailableTableExists(List<Table> tables)
+        {
+            return tables != null && tables.Count > 0;
+        }
+
+        List<Table> GetAvailableTables(DateTime date, int numberOfGuests)
         {
             //TODO: get from TableService
             return new List<Table>();
