@@ -94,7 +94,7 @@ namespace Restaurant.UnitTests.Business.Services
             tableService.Setup(x => x.GetAvailableTables(reservationDate, numberOfGuests)).Returns(tables);
             reservationFactory.Setup(x => x.CreateReservation(customerName, reservationDate, numberOfGuests, tables[0].Number)).Returns(reservation);
             reservationRepository.Setup(x => x.SaveReservation(reservation));
-            emailService.Setup(x => x.SendEmail(It.IsAny<string>(), "Rezervasyon Onayı", It.IsAny<string>()));
+            emailService.Setup(x => x.SendReservationApprovalEmail(customerEmailAddress, reservation));
 
             // Act
             var result = service!.MakeReservation(customerName, customerEmailAddress, reservationDate, numberOfGuests);

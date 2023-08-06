@@ -38,6 +38,7 @@ namespace Restaurant.Business.Services
         public OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
         {
             var tables = GetAvailableTables(date, guests);
+            
             if (!AvailableTableExists(tables))
             {
                 return OperationResult.Error(UserMessages.AvailableTableForReservationNotFound);
@@ -46,7 +47,6 @@ namespace Restaurant.Business.Services
             var reservation = CreateReservation(customerName, date, guests, tables);
             SaveReservation(reservation);
             SendReservationEmail(customerEmailAddress, reservation);
-
             return OperationResult.Success(UserMessages.ReservationSavedSuccessfully);
         }
 
@@ -72,10 +72,9 @@ namespace Restaurant.Business.Services
             reservationRepository.SaveReservation(reservation);
         }
 
-        void SendReservationEmail(string recipient, Reservation reservation)
+        void SendReservationEmail(string customerEmailAddress, Reservation reservation)
         {
-            var message = $"Sayın {reservation.CustomerName}, rezervasyonunuz başarıyla alındı. Masa No: {reservation.TableNumber}, Tarih: {reservation.ReservationDate}, Kişi Sayısı: {reservation.NumberOfGuests}";
-            emailService.SendEmail(recipient, "Rezervasyon Onayı", message);
+            emailService.SendReservationApprovalEmail(customerEmailAddress, reservation);
         }
 
         #endregion

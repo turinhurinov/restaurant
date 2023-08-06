@@ -1,7 +1,9 @@
-﻿namespace Restaurant.Business.Services.Abstract
+﻿using Restaurant.Model;
+
+namespace Restaurant.Business.Services.Abstract
 {
     public interface IEmailService
     {
-        void SendEmail(string recipient, string subject, string message);
+        void SendReservationApprovalEmail(string customerEmailAddress, Reservation reservation);
     }
 }

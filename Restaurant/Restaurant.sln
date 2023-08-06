@@ -3,23 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Business", "Restaurant.Business\Restaurant.Business.csproj", "{DB938A1E-62B9-488C-A48E-D8746C7D61CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Business", "Restaurant.Business\Restaurant.Business.csproj", "{DB938A1E-62B9-488C-A48E-D8746C7D61CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Model", "Restaurant.Model\Restaurant.Model.csproj", "{6B86FFC6-237C-4479-8D5A-8F20414F36E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Model", "Restaurant.Model\Restaurant.Model.csproj", "{6B86FFC6-237C-4479-8D5A-8F20414F36E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Api", "Restaurant.Api\Restaurant.Api.csproj", "{64D55074-CB29-4127-9CDA-16982C70FCA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Api", "Restaurant.Api\Restaurant.Api.csproj", "{64D55074-CB29-4127-9CDA-16982C70FCA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Data", "Restaurant.Data\Restaurant.Data.csproj", "{A6817FBA-C46D-4346-A018-AC44469DED9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Data", "Restaurant.Data\Restaurant.Data.csproj", "{A6817FBA-C46D-4346-A018-AC44469DED9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Ioc", "Restaurant.Ioc\Restaurant.Ioc.csproj", "{ADC76357-889F-445A-B2E0-B6A5D2645824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Ioc", "Restaurant.Ioc\Restaurant.Ioc.csproj", "{ADC76357-889F-445A-B2E0-B6A5D2645824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.UnitTests", "Restaurant.UnitTests\Restaurant.UnitTests.csproj", "{0264D968-2EC8-40F4-857F-77751BDE8141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.UnitTests", "Restaurant.UnitTests\Restaurant.UnitTests.csproj", "{0264D968-2EC8-40F4-857F-77751BDE8141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.IntegrationTests", "Restaurant.IntegrationTests\Restaurant.IntegrationTests.csproj", "{0A9D6B6B-7C5F-45E6-A588-F5552AA13AAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.IntegrationTests", "Restaurant.IntegrationTests\Restaurant.IntegrationTests.csproj", "{0A9D6B6B-7C5F-45E6-A588-F5552AA13AAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D897B8D1-4FC6-4FBF-A08C-CBD8A84706DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{69391AC0-C302-4370-975F-F0390EB012A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Framework", "Restaurant.Framework\Restaurant.Framework.csproj", "{2C9347F8-4FF9-4706-8A63-7F613F4F105F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{0A9D6B6B-7C5F-45E6-A588-F5552AA13AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A9D6B6B-7C5F-45E6-A588-F5552AA13AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A9D6B6B-7C5F-45E6-A588-F5552AA13AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C9347F8-4FF9-4706-8A63-7F613F4F105F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9347F8-4FF9-4706-8A63-7F613F4F105F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9347F8-4FF9-4706-8A63-7F613F4F105F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9347F8-4FF9-4706-8A63-7F613F4F105F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
