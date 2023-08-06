@@ -35,16 +35,16 @@ namespace Restaurant.Business.Services
 
         #region make reservation
 
-        public OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
+        public OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime reservationDate, int numberOfGuests)
         {
-            var tables = GetAvailableTables(date, guests);
+            var tables = GetAvailableTables(reservationDate, numberOfGuests);
             
             if (!AvailableTableExists(tables))
             {
                 return OperationResult.Error(UserMessages.AvailableTableForReservationNotFound);
             }
 
-            var reservation = CreateReservation(customerName, date, guests, tables);
+            var reservation = CreateReservation(customerName, reservationDate, numberOfGuests, tables);
             SaveReservation(reservation);
             SendReservationEmail(customerEmailAddress, reservation);
             return OperationResult.Success(UserMessages.ReservationSavedSuccessfully);

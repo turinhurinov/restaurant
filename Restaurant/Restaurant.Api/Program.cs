@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Restaurant.Ioc;
 
 namespace Restaurant.Api
 {
@@ -15,6 +18,9 @@ namespace Restaurant.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+             .ConfigureContainer<ContainerBuilder>(RestaurantAutofacContainerConfigurator.ConfigureContainer)
+;
     }
 }

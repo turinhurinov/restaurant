@@ -5,6 +5,6 @@ namespace Restaurant.Business.Services.Abstract
 {
     public interface IReservationService
     {
-        OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests);
+        OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime reservationDate, int numberOfGuests);
     }
 }
