@@ -49,10 +49,9 @@ namespace Restaurant.Business.Services
             return OperationResult.Success("Rezervasyon başarıyla yapıldı.");
         }
 
-        Reservation CreateReservation(string customerName, DateTime reservationDate, int numberOfGuests, List<Table> tables)
+        List<Table> GetAvailableTables(DateTime reservationDate, int numberOfGuests)
         {
-            var availableTableNumber = tables[0].Number;
-            return reservationFactory.CreateReservation(customerName, reservationDate, numberOfGuests, availableTableNumber);
+            return tableService.GetAvailableTables(reservationDate, numberOfGuests);
         }
 
         static bool AvailableTableExists(List<Table> tables)
@@ -60,10 +59,12 @@ namespace Restaurant.Business.Services
             return tables != null && tables.Count > 0;
         }
 
-        List<Table> GetAvailableTables(DateTime reservationDate, int numberOfGuests)
+        Reservation CreateReservation(string customerName, DateTime reservationDate, int numberOfGuests, List<Table> tables)
         {
-            return tableService.GetAvailableTables(reservationDate, numberOfGuests);
+            var availableTableNumber = tables[0].Number;
+            return reservationFactory.CreateReservation(customerName, reservationDate, numberOfGuests, availableTableNumber);
         }
+
 
         void SaveReservation(Reservation reservation)
         {
