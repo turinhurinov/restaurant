@@ -6,6 +6,7 @@ using Restaurant.Business.Services;
 using Restaurant.Business.Services.Abstract;
 using Restaurant.Data.Repositories.Abstract;
 using Restaurant.Model;
+using Restaurant.Model.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -75,7 +76,7 @@ namespace Restaurant.UnitTests.Business.Services
             var result = service!.MakeReservation(customerName, customerEmailAddress, reservationDate, numberOfGuests);
 
             // Assert
-            var expectedResult = OperationResult.Error("Üzgünüz, uygun masa bulunamadı.");
+            var expectedResult = OperationResult.Error(UserMessages.AvailableTableForReservationNotFound);
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -100,7 +101,7 @@ namespace Restaurant.UnitTests.Business.Services
             var result = service!.MakeReservation(customerName, customerEmailAddress, reservationDate, numberOfGuests);
 
             // Assert
-            var expectedResult = OperationResult.Success("Rezervasyon başarıyla yapıldı.");
+            var expectedResult = OperationResult.Success(UserMessages.ReservationSavedSuccessfully);
             result.Should().BeEquivalentTo(expectedResult);
         }
 

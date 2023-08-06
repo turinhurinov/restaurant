@@ -2,6 +2,7 @@
 using Restaurant.Business.Services.Abstract;
 using Restaurant.Data.Repositories.Abstract;
 using Restaurant.Model;
+using Restaurant.Model.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -39,14 +40,14 @@ namespace Restaurant.Business.Services
             var tables = GetAvailableTables(date, guests);
             if (!AvailableTableExists(tables))
             {
-                return OperationResult.Error("Üzgünüz, uygun masa bulunamadı.");
+                return OperationResult.Error(UserMessages.AvailableTableForReservationNotFound);
             }
 
             var reservation = CreateReservation(customerName, date, guests, tables);
             SaveReservation(reservation);
             SendReservationEmail(customerEmailAddress, reservation);
 
-            return OperationResult.Success("Rezervasyon başarıyla yapıldı.");
+            return OperationResult.Success(UserMessages.ReservationSavedSuccessfully);
         }
 
         List<Table> GetAvailableTables(DateTime reservationDate, int numberOfGuests)
