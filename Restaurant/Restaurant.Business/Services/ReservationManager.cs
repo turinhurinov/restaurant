@@ -1,72 +1,69 @@
-﻿using System;
+﻿using Restaurant.Business.Services.Abstract;
+using Restaurant.Data.Repositories.Abstract;
+using Restaurant.Model;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace ROPNG.Host
+namespace Restaurant.Business.Services
 {
-    using System;
 
-    public class ReservationManager
+    public class ReservationService : IReservationService
     {
-        public void MakeReservation(string name, DateTime date, int guests)
+
+        #region ctor
+
+        readonly IReservationRepository reservationRepository;
+        readonly IEmailService emailService;
+
+        public ReservationService(IReservationRepository reservationRepository, IEmailService emailService)
         {
-            var tables = GetTables(date, guests);
+            this.reservationRepository = reservationRepository;
+            this.emailService = emailService;
+        }
+
+        #endregion
+
+        public void MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
+        {
+            //TODO: validate request
+            var tables = GetAvailableTables(date, guests);
             if (tables == null || tables.Count == 0)
             {
                 Console.WriteLine("Üzgünüz, uygun masa bulunamadı.");
                 return;
             }
 
+            //TODO: Create through factory
             var table = tables[0];
             var reservation = new Reservation
             {
-                CustomerName = name,
+                CustomerName = customerName,
                 ReservationDate = date,
                 NumberOfGuests = guests,
                 TableNumber = table.Number
             };
 
             SaveReservation(reservation);
-
-            // Rezervasyon onay e-postası gönderme
-            var email = $"Sayın {name}, rezervasyonunuz başarıyla alındı. Masa No: {table.Number}, Tarih: {date}, Kişi Sayısı: {guests}";
-            SendEmail(name, "Rezervasyon Onayı", email);
+            SendReservationEmail(customerEmailAddress, reservation);
 
             Console.WriteLine("Rezervasyon başarıyla yapıldı.");
         }
 
-        public List<Table> GetTables(DateTime date, int guests)
+        List<Table> GetAvailableTables(DateTime date, int guests)
         {
-            // Burada uygun masaların listesini getirme işlemi yapılır.
-            // ...
+            //TODO: get from TableService
             return new List<Table>();
         }
 
-        public void SaveReservation(Reservation reservation)
+        void SaveReservation(Reservation reservation)
         {
-            // Rezervasyon kaydetme işlemi
-            // ...
+            reservationRepository.SaveReservation(reservation);
         }
 
-        public void SendEmail(string recipient, string subject, string message)
+        void SendReservationEmail(string recipient, Reservation reservation)
         {
-            // E-posta gönderme işlemi
-            // ...
+            var message = $"Sayın {reservation.CustomerName}, rezervasyonunuz başarıyla alındı. Masa No: {reservation.TableNumber}, Tarih: {reservation.ReservationDate}, Kişi Sayısı: {reservation.NumberOfGuests}";
+            emailService.SendEmai(recipient, "Rezervasyon Onayı", message);
         }
-    }
-
-    public class Reservation
-    {
-        public string CustomerName { get; set; }
-        public DateTime ReservationDate { get; set; }
-        public int NumberOfGuests { get; set; }
-        public int TableNumber { get; set; }
-    }
-
-    public class Table
-    {
-        public int Number { get; set; }
-        public int Capacity { get; set; }
     }
 }

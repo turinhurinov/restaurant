@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\Restaurant.Model\Restaurant.Model.csproj" />
   </ItemGroup>
 
 </Project>
