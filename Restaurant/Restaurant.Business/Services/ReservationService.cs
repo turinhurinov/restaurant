@@ -1,4 +1,5 @@
-﻿using Restaurant.Business.Services.Abstract;
+﻿using Restaurant.Business.Factories.Abstract;
+using Restaurant.Business.Services.Abstract;
 using Restaurant.Data.Repositories.Abstract;
 using Restaurant.Model;
 using System;
@@ -14,19 +15,24 @@ namespace Restaurant.Business.Services
 
         readonly IReservationRepository reservationRepository;
         readonly ITableService tableService;
+        readonly IReservationFactory reservationFactory;
         readonly IEmailService emailService;
 
         public ReservationService(
             IReservationRepository reservationRepository, 
             ITableService tableService,
+            IReservationFactory reservationFactory,
             IEmailService emailService)
         {
             this.reservationRepository = reservationRepository;
             this.tableService = tableService;
+            this.reservationFactory = reservationFactory;
             this.emailService = emailService;
         }
 
         #endregion
+
+        #region make reservation
 
         public OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
         {
@@ -43,17 +49,10 @@ namespace Restaurant.Business.Services
             return OperationResult.Success("Rezervasyon başarıyla yapıldı.");
         }
 
-        //TODO: Create through factory
-        static Reservation CreateReservation(string customerName, DateTime date, int guests, List<Table> tables)
+        Reservation CreateReservation(string customerName, DateTime reservationDate, int numberOfGuests, List<Table> tables)
         {
-            var table = tables[0];
-            return new Reservation
-            {
-                CustomerName = customerName,
-                ReservationDate = date,
-                NumberOfGuests = guests,
-                TableNumber = table.Number
-            };
+            var availableTableNumber = tables[0].Number;
+            return reservationFactory.CreateReservation(customerName, reservationDate, numberOfGuests, availableTableNumber);
         }
 
         static bool AvailableTableExists(List<Table> tables)
@@ -74,7 +73,9 @@ namespace Restaurant.Business.Services
         void SendReservationEmail(string recipient, Reservation reservation)
         {
             var message = $"Sayın {reservation.CustomerName}, rezervasyonunuz başarıyla alındı. Masa No: {reservation.TableNumber}, Tarih: {reservation.ReservationDate}, Kişi Sayısı: {reservation.NumberOfGuests}";
-            emailService.SendEmai(recipient, "Rezervasyon Onayı", message);
+            emailService.SendEmail(recipient, "Rezervasyon Onayı", message);
         }
+
+        #endregion
     }
 }

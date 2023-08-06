@@ -1,0 +1,13 @@
+﻿<SolutionConfiguration>
+  <Settings>
+    <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>Restaurant.Business\Restaurant.Business.csproj\Abstract</Value>
+      <Value>Restaurant.Data\Restaurant.Data.csproj\Abstract</Value>
+      <Value>Program.cs:Restaurant.Api\Restaurant.Api.csproj</Value>
+      <Value>Startup.cs:Restaurant.Api\Restaurant.Api.csproj</Value>
+      <Value>Restaurant.Ioc\Restaurant.Ioc.csproj</Value>
+    </MetricsExclusionList>
+    <SolutionConfigured>True</SolutionConfigured>
+  </Settings>
+</SolutionConfiguration>
