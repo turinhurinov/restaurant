@@ -9,7 +9,6 @@ using Restaurant.Model;
 using Restaurant.Model.Messages;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Restaurant.UnitTests.Business.Services
 
@@ -17,7 +16,7 @@ namespace Restaurant.UnitTests.Business.Services
     [TestFixture]
     public class ReservationServiceTests
     {
-        #region members
+        #region setup
 
         Mock<IReservationRepository> reservationRepository;
         Mock<ITableService> tableService;
