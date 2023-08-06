@@ -1,15 +1,61 @@
-﻿using System;
+﻿using Restaurant.Framework.Abtract;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Mail;
 
-namespace Restaurant.Framework
+namespace Restaurant.Framework.Services
 {
     [ExcludeFromCodeCoverage]
     public class SmtpService : ISmtpService
     {
-        public void SendEmail(string recipient, string subject, string message)
+
+        #region ctor
+        
+        readonly ISettings settings;
+
+        public SmtpService(ISettings settings)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            this.settings = settings;
+        }
+
+        #endregion
+
+        public bool SendMail(MailMessage mail)
+        {
+            var smtpClient = CreateSmtpClient();
+            bool mailSent = false;
+
+            try
+            {
+                smtpClient.Send(mail);
+                mailSent = true;
+            }
+            catch (Exception ex)
+            {
+                mailSent = false;
+
+                //Log error
+            }
+            finally
+            {
+                mail.Dispose();
+                smtpClient = null!;
+            }
+
+            return mailSent;
+        }
+
+        SmtpClient CreateSmtpClient()
+        {
+            string smtpAddress = settings.SmtpAddress;
+            string smtpUserName = settings.SmtpUsername;
+            string smtpPassword = settings.SmtpPassword;
+            int portNumber = settings.SmtpPortNumber;
+
+            var smtpClient = new SmtpClient(smtpAddress, portNumber);
+            smtpClient.EnableSsl = settings.SmtpEnableSSL;
+            smtpClient.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
+            return smtpClient;
         }
     }
 }

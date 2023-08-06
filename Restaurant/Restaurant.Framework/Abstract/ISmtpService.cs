@@ -1,7 +1,9 @@
-﻿namespace Restaurant.Framework
+﻿using System.Net.Mail;
+
+namespace Restaurant.Framework.Abtract
 {
     public interface ISmtpService
     {
-        void SendEmail(string recipient, string subject, string message);
+        bool SendMail(MailMessage mail);
     }
 }

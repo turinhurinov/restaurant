@@ -1,5 +1,5 @@
 ﻿using Restaurant.Business.Services.Abstract;
-using Restaurant.Framework;
+using Restaurant.Framework.Abtract;
 using Restaurant.Model;
 
 namespace Restaurant.Business.Services
@@ -9,10 +9,17 @@ namespace Restaurant.Business.Services
         #region ctor
 
         readonly ISmtpService smtpService;
+        readonly IMailMessageFactory mailMessageFactory;
+        readonly ISettings settings;
 
-        public EmailService(ISmtpService smtpService)
+        public EmailService(
+            ISmtpService smtpService, 
+            IMailMessageFactory mailMessageFactory,
+            ISettings settings)
         {
             this.smtpService = smtpService;
+            this.mailMessageFactory = mailMessageFactory;
+            this.settings = settings;
         }
 
         #endregion
@@ -21,7 +28,18 @@ namespace Restaurant.Business.Services
         {
             var subject = "Rezervasyon Onayı";
             var message = $"Sayın {reservation.CustomerName}, rezervasyonunuz başarıyla alındı. Masa No: {reservation.TableNumber}, Tarih: {reservation.ReservationDate}, Kişi Sayısı: {reservation.NumberOfGuests}";
-            smtpService.SendEmail(customerEmailAddress, subject, message);
+            string senderEmailAddress = settings.SupportEmailAddress;
+            string senderName = settings.DefaultMailSenderName;
+
+            var mail = mailMessageFactory.CreateMailMessage(
+                senderEmailAddress,
+                senderName,
+                subject,
+                customerEmailAddress,
+                false,
+                message);
+
+            smtpService.SendMail(mail);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
 using Restaurant.Business.Services;
-using Restaurant.Framework;
+using Restaurant.Framework.Abtract;
 using Restaurant.Model;
+using System.Net.Mail;
 
 namespace Restaurant.UnitTests.Business.Services
 
@@ -13,6 +14,8 @@ namespace Restaurant.UnitTests.Business.Services
         #region setup
 
         Mock<ISmtpService> smtpService;
+        Mock<IMailMessageFactory> mailMessageFactory;
+        Mock<ISettings> settings;
 
         EmailService service;
 
@@ -20,8 +23,13 @@ namespace Restaurant.UnitTests.Business.Services
         public void Initialize()
         {
             smtpService = new Mock<ISmtpService>(MockBehavior.Strict);
+            mailMessageFactory = new Mock<IMailMessageFactory>(MockBehavior.Strict);
+            settings = new Mock<ISettings>(MockBehavior.Strict);
 
-            service = new EmailService(smtpService.Object);
+            service = new EmailService(
+                smtpService.Object, 
+                mailMessageFactory.Object,
+                settings.Object);
         }
 
         #endregion
@@ -32,6 +40,7 @@ namespace Restaurant.UnitTests.Business.Services
         public void VerifyMocks()
         {
             smtpService.VerifyAll();
+            mailMessageFactory.VerifyAll();
         }
 
         #endregion
@@ -45,9 +54,15 @@ namespace Restaurant.UnitTests.Business.Services
 
             string subject = "Rezervasyon Onayı";
             var message = $"Sayın {reservation.CustomerName}, rezervasyonunuz başarıyla alındı. Masa No: {reservation.TableNumber}, Tarih: {reservation.ReservationDate}, Kişi Sayısı: {reservation.NumberOfGuests}";
+            var senderEmailAddress = "";
+            var senderName = "";
+            var mailMessage = new MailMessage();
+            var mailSent = true;
 
-
-            smtpService.Setup(x => x.SendEmail(customerEmailAddress, subject, message));
+            settings.Setup(x => x.SupportEmailAddress).Returns(senderEmailAddress);
+            settings.Setup(x => x.DefaultMailSenderName).Returns(senderName);
+            mailMessageFactory.Setup(x => x.CreateMailMessage(senderEmailAddress, senderName, subject, customerEmailAddress, false, message)).Returns(mailMessage);
+            smtpService.Setup(x => x.SendMail(mailMessage)).Returns(mailSent);
 
             // Act
             service!.SendReservationApprovalEmail(customerEmailAddress, reservation);
