@@ -13,40 +13,47 @@ namespace Restaurant.Business.Services
         #region ctor
 
         readonly IReservationRepository reservationRepository;
+        readonly ITableService tableService;
         readonly IEmailService emailService;
 
-        public ReservationService(IReservationRepository reservationRepository, IEmailService emailService)
+        public ReservationService(
+            IReservationRepository reservationRepository, 
+            ITableService tableService,
+            IEmailService emailService)
         {
             this.reservationRepository = reservationRepository;
+            this.tableService = tableService;
             this.emailService = emailService;
         }
 
         #endregion
 
-        public void MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
+        public OperationResult MakeReservation(string customerName, string customerEmailAddress, DateTime date, int guests)
         {
-            //TODO: validate request
             var tables = GetAvailableTables(date, guests);
             if (!AvailableTableExists(tables))
             {
-                Console.WriteLine("Üzgünüz, uygun masa bulunamadı.");
-                return;
+                return OperationResult.Error("Üzgünüz, uygun masa bulunamadı.");
             }
 
-            //TODO: Create through factory
+            var reservation = CreateReservation(customerName, date, guests, tables);
+            SaveReservation(reservation);
+            SendReservationEmail(customerEmailAddress, reservation);
+
+            return OperationResult.Success("Rezervasyon başarıyla yapıldı.");
+        }
+
+        //TODO: Create through factory
+        static Reservation CreateReservation(string customerName, DateTime date, int guests, List<Table> tables)
+        {
             var table = tables[0];
-            var reservation = new Reservation
+            return new Reservation
             {
                 CustomerName = customerName,
                 ReservationDate = date,
                 NumberOfGuests = guests,
                 TableNumber = table.Number
             };
-
-            SaveReservation(reservation);
-            SendReservationEmail(customerEmailAddress, reservation);
-
-            Console.WriteLine("Rezervasyon başarıyla yapıldı.");
         }
 
         static bool AvailableTableExists(List<Table> tables)
@@ -54,10 +61,9 @@ namespace Restaurant.Business.Services
             return tables != null && tables.Count > 0;
         }
 
-        List<Table> GetAvailableTables(DateTime date, int numberOfGuests)
+        List<Table> GetAvailableTables(DateTime reservationDate, int numberOfGuests)
         {
-            //TODO: get from TableService
-            return new List<Table>();
+            return tableService.GetAvailableTables(reservationDate, numberOfGuests);
         }
 
         void SaveReservation(Reservation reservation)
