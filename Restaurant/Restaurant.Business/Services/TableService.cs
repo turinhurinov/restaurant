@@ -3,6 +3,7 @@ using Restaurant.Data.Abstract;
 using Restaurant.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Restaurant.Business.Services
 {
@@ -24,10 +25,8 @@ namespace Restaurant.Business.Services
         public List<Table> GetAvailableTables(DateTime reservationDate, int numberOfGuests)
         {
             var tables = tableRepository.GetAllTables();
-            //TODO: Rezervasyona uygun tabloları süz
-            //TODO: En uygunluk sırasına göre listele
-            //TODO: Uygun tablo listesini döndür.
-            return new List<Table>();
+            var availableTables = tables.Where(x => x.Capacity >= numberOfGuests).ToList();
+            return availableTables;
         }
     }
 }

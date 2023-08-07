@@ -19,10 +19,12 @@ namespace Restaurant.IntegrationTests.ApiTests
         [TestCase("customer-name", "", 1)]
         [TestCase(null, "customer-email-address", 1)]
         [TestCase("", "customer-email-address", 1)]
-        [TestCase("customer-name", "customer-email-address", -1)]
-        [TestCase("customer-name", "customer-email-address", 0)]
-        [TestCase("customer-name", "customer-email-address", 9)]
-        [TestCase("customer-name", "customer-email-address", 15)]
+        [TestCase(null, "test@example.org", 1)]
+        [TestCase("", "test@example.org", 1)]
+        [TestCase("customer-name", "test@example.org", -1)]
+        [TestCase("customer-name", "test@example.org", 0)]
+        [TestCase("customer-name", "test@example.org", 9)]
+        [TestCase("customer-name", "test@example.org", 15)]
         public async Task MakeReservation_InvalidParameters_ReturnBadRequest(
            string customerName,
            string customerEmailAddress,
@@ -51,7 +53,7 @@ namespace Restaurant.IntegrationTests.ApiTests
             var request = new MakeReservationRequest
             {
                 CustomerName = "customer-name",
-                CustomerEmailAddress = "customer-email-address",
+                CustomerEmailAddress = "test@example.org",
                 ReservationDate = DateTime.Now,
                 NumberOfGuests = 5
             };
@@ -72,7 +74,7 @@ namespace Restaurant.IntegrationTests.ApiTests
             var request = new MakeReservationRequest
             {
                 CustomerName = "customer-name",
-                CustomerEmailAddress = "customer-email-address",
+                CustomerEmailAddress = "test@example.org",
                 ReservationDate = DateTime.Now,
                 NumberOfGuests = 3
             };

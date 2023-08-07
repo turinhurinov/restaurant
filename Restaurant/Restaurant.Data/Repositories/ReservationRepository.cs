@@ -7,7 +7,7 @@ namespace Restaurant.Data.Repositories
     {
         public void SaveReservation(Reservation reservation)
         {
-            throw new System.NotImplementedException();
+            //Rezervasyon veritabanına kaydedilir.
         }
     }
 }

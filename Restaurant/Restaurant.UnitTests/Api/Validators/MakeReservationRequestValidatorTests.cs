@@ -6,7 +6,7 @@ using Restaurant.Model;
 using System;
 using System.Globalization;
 
-namespace BookingComIntegration.UnitTests.Validation.FluentValidators
+namespace Restaurant.UnitTests.Validation.FluentValidators
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
@@ -69,7 +69,7 @@ namespace BookingComIntegration.UnitTests.Validation.FluentValidators
             var request = new MakeReservationRequest
             {
                 CustomerName = "test-customer",
-                CustomerEmailAddress = "test-customer-email-address",
+                CustomerEmailAddress = "test@example.org",
                 ReservationDate = DateTime.Now,
                 NumberOfGuests = numberOfGuests
             };
@@ -83,6 +83,25 @@ namespace BookingComIntegration.UnitTests.Validation.FluentValidators
                 );
         }
 
+        [Test]
+        [TestCase("test-email")]
+        public void Validate_InvalidEmail_HaveError(string customerEmailAddress)
+        {
+            //Arrange
+            var request = new MakeReservationRequest
+            {
+                CustomerName = "test-customer",
+                CustomerEmailAddress = customerEmailAddress,
+                ReservationDate = DateTime.Now,
+                NumberOfGuests = 3
+            };
+
+            //Act
+            var result = validator.TestValidate(request);
+
+            //Assert
+            result.ShouldHaveValidationErrorFor(x => x.CustomerEmailAddress);
+        }
 
         #endregion
 
@@ -97,7 +116,7 @@ namespace BookingComIntegration.UnitTests.Validation.FluentValidators
             var request = new MakeReservationRequest
             {
                 CustomerName = "test-customer",
-                CustomerEmailAddress = "test-customer-email-address",
+                CustomerEmailAddress = "test@example.org",
                 ReservationDate = DateTime.Now,
                 NumberOfGuests = numberOfGuests
             };

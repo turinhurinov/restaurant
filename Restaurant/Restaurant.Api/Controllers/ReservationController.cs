@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Model;
-using Restaurant.Api.Model.Messages;
 using Restaurant.Business.Abstract;
 
 namespace Restaurant.Api.Controllers
@@ -31,12 +30,12 @@ namespace Restaurant.Api.Controllers
 
             if (makeReservationResult.IsSuccess)
             {
-                return Ok(makeReservationResult.Message);
+                return Ok(SuccessResult.Create(makeReservationResult.Message));
             }
             else
             {
                 return Problem(
-                        detail: makeReservationResult.Message,
+                        makeReservationResult.Message,
                         statusCode: StatusCodes.Status500InternalServerError,
                         title: ServiceResultMessages.ServerError);
             }

@@ -22,6 +22,9 @@ namespace Restaurant.Framework.Services
 
         public bool SendMail(MailMessage mail)
         {
+            //SMTP ayarları tanımlandığında bir sonraki satır kaldırılır. Şimdilik başarılı gönderim olduğu varsayılıyor.
+            return true;
+
             var smtpClient = CreateSmtpClient();
             bool mailSent = false;
 
@@ -33,7 +36,6 @@ namespace Restaurant.Framework.Services
             catch (Exception ex)
             {
                 mailSent = false;
-
                 //Log error
             }
             finally

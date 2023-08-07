@@ -17,7 +17,8 @@ namespace Restaurant.Api.Validators
             RuleFor(x => x.CustomerEmailAddress)
                .NotNull()
                .NotEmpty()
-               .WithMessage(GenerateMessage(ValidationMessages.NotEmpty, PropertyNames.CustomerEmailAddress));
+               .WithMessage(GenerateMessage(ValidationMessages.NotEmpty, PropertyNames.CustomerEmailAddress))
+               .EmailAddress();
 
             RuleFor(x => x.ReservationDate)
                .NotNull()

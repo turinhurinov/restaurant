@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using Restaurant.Api;
 using Restaurant.Api.Controllers;
 using Restaurant.Api.Model;
 using Restaurant.Business.Abstract;
 using Restaurant.Model;
-using System.Net;
 
 namespace Restaurant.UnitTests.Api.Controllers
 {
@@ -38,6 +38,8 @@ namespace Restaurant.UnitTests.Api.Controllers
         }
 
         #endregion
+
+        //Bu testte ProblemDetails dönüş tipi oluşturulurken Object reference hatası oluşuyor. Nedeni anlaşılamadı.
 
         //[Test]
         //public void MakeReservation_InternalServerError_ReturnInternalServerError()
@@ -71,8 +73,9 @@ namespace Restaurant.UnitTests.Api.Controllers
             var result = controller!.Post(request);
 
             //Assert
+            var expectedResult = SuccessResult.Create(makeReservationResult.Message);
             result.Should().BeOfType<OkObjectResult>()
-                .Which.Value.Should().BeEquivalentTo(makeReservationResult.Message);
+                .Which.Value.Should().BeEquivalentTo(expectedResult);
         }
     }
 }
