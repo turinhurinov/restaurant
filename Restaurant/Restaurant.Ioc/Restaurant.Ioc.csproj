@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Business.Abstract\Restaurant.Business.Abstract.csproj" />
     <ProjectReference Include="..\Restaurant.Business\Restaurant.Business.csproj" />
+    <ProjectReference Include="..\Restaurant.Data.Abstract\Restaurant.Data.Abstract.csproj" />
+    <ProjectReference Include="..\Restaurant.Framework.Abstract\Restaurant.Framework.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

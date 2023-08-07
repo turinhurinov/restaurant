@@ -1,4 +1,4 @@
-﻿using Restaurant.Data.Repositories.Abstract;
+﻿using Restaurant.Data.Abstract;
 using Restaurant.Model;
 
 namespace Restaurant.Data.Repositories

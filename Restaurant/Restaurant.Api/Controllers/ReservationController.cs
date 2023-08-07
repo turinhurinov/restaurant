@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Model;
 using Restaurant.Api.Model.Messages;
-using Restaurant.Business.Services.Abstract;
+using Restaurant.Business.Abstract;
 
 namespace Restaurant.Api.Controllers
 {

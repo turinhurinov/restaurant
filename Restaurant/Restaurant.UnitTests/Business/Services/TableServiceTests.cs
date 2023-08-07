@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Restaurant.Business.Services;
-using Restaurant.Data.Repositories.Abstract;
+using Restaurant.Data.Abstract;
 using Restaurant.Model;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using Restaurant.Model;
 
-namespace Restaurant.Data.Repositories.Abstract
+namespace Restaurant.Data.Abstract
 {
     public interface IReservationRepository
     {

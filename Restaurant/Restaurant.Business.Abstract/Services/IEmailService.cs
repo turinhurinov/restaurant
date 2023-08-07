@@ -1,6 +1,6 @@
 ﻿using Restaurant.Model;
 
-namespace Restaurant.Business.Services.Abstract
+namespace Restaurant.Business.Abstract
 {
     public interface IEmailService
     {

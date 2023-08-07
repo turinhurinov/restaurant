@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Restaurant.Business.Services.Abstract
+namespace Restaurant.Business.Abstract
 {
     public interface ITableService
     {

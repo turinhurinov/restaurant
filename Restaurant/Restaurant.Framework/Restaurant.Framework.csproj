@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Framework.Abstract\Restaurant.Framework.Abstract.csproj" />
     <ProjectReference Include="..\Restaurant.Model\Restaurant.Model.csproj" />
   </ItemGroup>
 

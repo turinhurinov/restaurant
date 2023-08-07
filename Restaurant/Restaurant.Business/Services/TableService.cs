@@ -1,5 +1,5 @@
-﻿using Restaurant.Business.Services.Abstract;
-using Restaurant.Data.Repositories.Abstract;
+﻿using Restaurant.Business.Abstract;
+using Restaurant.Data.Abstract;
 using Restaurant.Model;
 using System;
 using System.Collections.Generic;

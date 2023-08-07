@@ -1,10 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using Restaurant.Business.Factories.Abstract;
+using Restaurant.Business.Abstract;
 using Restaurant.Business.Services;
-using Restaurant.Business.Services.Abstract;
-using Restaurant.Data.Repositories.Abstract;
+using Restaurant.Data.Abstract;
 using Restaurant.Model;
 using Restaurant.Model.Messages;
 using System;

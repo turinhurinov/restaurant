@@ -1,7 +1,7 @@
 ﻿using Restaurant.Model;
 using System.Collections.Generic;
 
-namespace Restaurant.Data.Repositories.Abstract
+namespace Restaurant.Data.Abstract
 {
     public interface ITableRepository
     {

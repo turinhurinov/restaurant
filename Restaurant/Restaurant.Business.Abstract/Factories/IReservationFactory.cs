@@ -1,7 +1,7 @@
 ﻿using Restaurant.Model;
 using System;
 
-namespace Restaurant.Business.Factories.Abstract
+namespace Restaurant.Business.Abstract
 {
     public interface IReservationFactory
     {
